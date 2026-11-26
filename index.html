@@ -105,6 +105,24 @@ body.driving #btn-run { display: none; }
 body.driving #btn-gas { display: grid; }
 body.driving #btn-act { grid-column: 1; grid-row: 1; }
 #drive-left { left: calc(var(--gl) + 132px); bottom: var(--gb); display: none; gap: 12px; }
+/* HUD do carro (topo central): Rádio, Faróis, Câmeras, Celular — botões redondos escuros, ícones brancos */
+#carbar { top: var(--gt); left: 50%; transform: translateX(-50%); display: none; gap: 12px; }
+body.driving #carbar { display: flex; }
+.cbtn { pointer-events: auto; touch-action: manipulation; -webkit-tap-highlight-color: transparent; width: clamp(44px, 12vh, 54px); aspect-ratio: 1; border-radius: 50%; padding: 0; display: grid; place-items: center; color: #fff;
+  background: radial-gradient(circle at 50% 35%, rgba(70,72,80,.72), rgba(24,26,30,.72)); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12); transition: transform .08s, background .15s; }
+.cbtn svg { width: 50%; height: 50%; }
+.cbtn:active { transform: scale(.92); }
+.cbtn.active { background: radial-gradient(circle at 50% 35%, rgba(90,96,108,.85), rgba(40,44,52,.85)); border-color: rgba(255,255,255,.45); }
+.cbtn.on svg path[fill="#fff"] { fill: #ffe9a8; }
+#btn-phone.phone-walk { grid-column: 2; grid-row: 1; width: 56px; position: relative; }
+body.driving #toast { top: calc(var(--gt) + 68px); }
+#carpanel { position: fixed; z-index: 30; min-width: 210px; max-width: 78vw; max-height: 62vh; overflow-y: auto; padding: 8px; border-radius: 16px; background: rgba(14,16,20,.9); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 12px 30px rgba(0,0,0,.45); display: grid; gap: 5px; }
+#carpanel[hidden] { display: none; }
+.cp-head { display: flex; justify-content: space-between; align-items: center; padding: 2px 4px 4px; font: 900 11px var(--font-body); letter-spacing: .12em; color: rgba(255,255,255,.7); }
+.cp-vol { display: flex; align-items: center; gap: 6px; } .cp-vol button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: #fff; font-size: 15px; } .cp-vol i { font-style: normal; color: #fff; min-width: 34px; text-align: center; }
+.cp-row { text-align: left; border: 0; border-radius: 10px; padding: 7px 10px; background: rgba(255,255,255,.06); color: #fff; font: 700 12.5px var(--font-body); display: grid; touch-action: manipulation; border-left: 3px solid var(--c, transparent); }
+.cp-row small { font-weight: 600; font-size: 10.5px; color: rgba(255,255,255,.6); }
+.cp-row.sel { background: #fff; color: #000; } .cp-row.sel small { color: rgba(0,0,0,.6); }
 body.driving.touch #drive-left { display: flex; }
 body.driving #joy, body.driving #joy-hint { display: none; }
 .dbtn { position: relative; width: 70px; height: 70px; border-radius: 20px; }
@@ -194,7 +212,7 @@ body.portrait #rotate { display: grid; }
 @media (prefers-reduced-motion: reduce) { .hud, #joy, .btn, #rotate .ico { transition: none; animation: none; } }
 @media (max-height: 430px) { #start h1 { font-size: 44px; } #start p { font-size: 13px; } }
 </style>
-  <script type="module" crossorigin src="./app/index-D0Xqq-jj.js"></script>
+  <script type="module" crossorigin src="./app/index-SCWkGtFc.js"></script>
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
