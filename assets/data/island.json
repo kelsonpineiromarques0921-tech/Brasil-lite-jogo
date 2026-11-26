@@ -1,0 +1,1 @@
+{"S": 8.88888888888889, "PX0": 515.0, "PY0": 750.0, "Z0": 58.0, "step": 28.0, "x0": -4577.777777777778, "z0": -6608.666666666667, "nx": 357, "nz": 327, "imgW": 1125, "imgH": 1028, "layout": ["coast:int16*0.25m", "lake:int16*0.25m", "cls:uint8", "urban:uint8", "forest:uint8"], "classes": ["mar", "areia", "campo", "mata", "urbano", "lago"]}
