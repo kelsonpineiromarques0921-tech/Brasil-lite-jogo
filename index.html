@@ -120,6 +120,39 @@ body.driving #carbar { display: flex; }
 .cbtn.on svg path[fill="#fff"] { fill: #ffe9a8; }
 #btn-phone.phone-walk { grid-column: 2; grid-row: 1; width: 56px; position: relative; }
 body.driving #toast { top: calc(var(--gt) + 68px); }
+/* oficina: painel de pintura e peças (lado esquerdo, rolável) */
+#tunepanel { position: fixed; z-index: 30; left: var(--gl); top: calc(var(--gt) + 64px); width: min(340px, 48vw); max-height: calc(100vh - var(--gt) - 150px); overflow-y: auto; padding: 10px; border-radius: 16px;
+  background: rgba(14,16,20,.9); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 12px 30px rgba(0,0,0,.45); display: flex; flex-direction: column; gap: 8px; pointer-events: auto; color: #fff; font-family: var(--font-body); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+#tunepanel > * { flex: 0 0 auto; }
+#tunepanel[hidden] { display: none; }
+.tp-head { display: flex; justify-content: space-between; align-items: center; font: 900 12px var(--font-body); letter-spacing: .12em; color: rgba(255,255,255,.8); }
+.tp-x { background: rgba(255,255,255,.1); color: #fff; border: 0; border-radius: 8px; width: 30px; height: 30px; font-size: 14px; }
+.tp-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; min-height: 34px; touch-action: pan-x; }
+.tp-tab, .tp-chip { flex: 0 0 auto; background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 7px 11px; font: 800 11px var(--font-body); white-space: nowrap; }
+.tp-tab.sel, .tp-chip.sel { background: #f5c400; color: #111; border-color: #f5c400; }
+.tp-body { display: flex; flex-direction: column; gap: 6px; }
+.tp-body > * { flex: 0 0 auto; }
+.tp-lab { font: 800 10px var(--font-body); letter-spacing: .1em; color: rgba(255,255,255,.6); text-transform: uppercase; margin-top: 4px; }
+.tp-pal { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 6px; }
+.tp-sw { aspect-ratio: 1; border-radius: 50%; border: 2px solid rgba(255,255,255,.25); box-shadow: inset 0 -4px 8px rgba(0,0,0,.35), inset 0 3px 6px rgba(255,255,255,.35); padding: 0; }
+.tp-sw.sel { border-color: #fff; box-shadow: 0 0 0 3px #f5c400, inset 0 -4px 8px rgba(0,0,0,.35); }
+.tp-pick { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: rgba(255,255,255,.06); border-radius: 10px; padding: 6px 10px; font: 800 11px var(--font-body); }
+.tp-pick input { width: 56px; height: 32px; border: 0; padding: 0; background: none; }
+.tp-fin { display: flex; flex-wrap: wrap; gap: 6px; }
+.tp-range { width: 100%; accent-color: #f5c400; }
+.tp-note { font: 600 11px var(--font-body); color: rgba(255,255,255,.6); }
+#tunepanel .cp-row { text-align: left; }
+body.tuning #drive-left, body.tuning .buttons { opacity: .35; }
+/* botão NITRO (só aparece com o nitro cheio): acima dos pedais, chama azul */
+#btn-nitro { position: fixed; z-index: 12; right: calc(var(--gr) + 6px); bottom: calc(var(--gb) + clamp(97px, 27vh, 136px) + 20px); width: clamp(58px, 15vh, 68px); aspect-ratio: 1; border-radius: 50%; padding: 0; border: 0;
+  display: grid; place-items: center; pointer-events: auto; touch-action: manipulation; -webkit-tap-highlight-color: transparent; color: #fff;
+  background: radial-gradient(circle at 50% 35%, #4f8dff, #1846b8 62%, #0b2466); box-shadow: 0 0 0 2.5px #9cc4ff, 0 0 18px 4px rgba(70,140,255,.55), 0 6px 16px rgba(0,0,0,.4); animation: nos-pulse 1.4s ease-in-out infinite; }
+#btn-nitro[hidden] { display: none; }
+#btn-nitro svg { width: 52%; height: 52%; margin-top: -8px; }
+#btn-nitro .lbl { position: absolute; bottom: 9%; font: 900 9.5px var(--font-body); letter-spacing: .08em; }
+#btn-nitro:active { transform: scale(.92); }
+@keyframes nos-pulse { 50% { box-shadow: 0 0 0 2.5px #cfe1ff, 0 0 26px 8px rgba(70,140,255,.75), 0 6px 16px rgba(0,0,0,.4); } }
+body:not(.driving) #btn-nitro { display: none; }
 /* chave de ignição: na barra do topo (ao lado do celular), do mesmo tamanho dos outros botões; desligado = chave em pé,
    anel cinza e luz vermelha; ligado = chave girada, anel e luz verdes */
 #ignition { position: relative; cursor: pointer; border: none;
@@ -227,7 +260,7 @@ body.portrait #rotate { display: grid; }
 @media (prefers-reduced-motion: reduce) { .hud, #joy, .btn, #rotate .ico { transition: none; animation: none; } }
 @media (max-height: 430px) { #start h1 { font-size: 44px; } #start p { font-size: 13px; } }
 </style>
-  <script type="module" crossorigin src="./app/index-DJ1l5qVK.js"></script>
+  <script type="module" crossorigin src="./app/index-D33nl2aA.js"></script>
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
@@ -286,6 +319,7 @@ body.portrait #rotate { display: grid; }
   </svg>
   <span class="ign-led"></span><span class="ign-lbl" id="ign-lbl">DESLIGADO</span>
 </button>
+<button id="btn-nitro" type="button" aria-label="Ativar nitro" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#cfe5ff" d="M12.5 2c.6 3-1.9 4.6-1.9 7.2 0 1.4.9 2.4 2.1 2.4 1.4 0 2.2-1.2 2-3 2.3 1.7 3.8 4.3 3.8 7.1A6.5 6.5 0 0 1 12 22a6.5 6.5 0 0 1-6.5-6.4c0-4.6 4.3-6.7 4.3-10.7 1 .4 2 1 2.7 2.1z"/><path fill="#fff" d="M12 21a3.2 3.2 0 0 1-3.2-3.2c0-2.3 2.3-3.3 2.3-5.3 1.9 1.1 4.1 2.8 4.1 5.3A3.2 3.2 0 0 1 12 21z"/></svg><span class="lbl">NITRO</span></button>
 <div class="hud" id="keys"><b>WASD</b> andar · <b>Shift</b> correr · <b>Espaço</b> pular/freio de mão · <b>F</b> interagir · <b>M</b> mapa · <b>arrastar o mouse</b> câmera</div>
 
 <div id="start">
@@ -304,6 +338,7 @@ body.portrait #rotate { display: grid; }
   <p><b>Carro:</b> "Car Concept" de Eric Chadwick, Darmstadt Graphics Group, via Khronos glTF Sample Assets. Licença CC BY 4.0 (creativecommons.org/licenses/by/4.0). Modelo simplificado e repintado.</p>
   <p><b>Palmeiras:</b> "Tropical Palm" de Šimon Ustal (sketchfab.com/simonustal). Licença CC BY 4.0. Tronco simplificado para celular.</p>
   <p><b>Corisco:</b> carro feito a partir do modelo "SportCar2" e da gravação de motor enviados pelo jogador (autor e licença não informados). Visual modificado, nome fictício e sem logo.</p>
+  <p><b>Oficina:</b> modelo "Garage" e texturas enviados pelo jogador (autor e licença não informados). Pôsteres, placa e emblema refeitos (sem personagens nem marcas).</p>
   <p><b>Pontes:</b> desenho baseado no modelo "Roadway Bridge" enviado pelo jogador (autor e licença não informados no arquivo). Perfil, pilares e postes refeitos para o jogo.</p>
   <p><b>Autódromo:</b> "Hungaroring 2020 layout" de Dave Love (sketchfab.com/Tyler_Dave). Licença CC BY 4.0. Otimizado e com as marcas trocadas pela NovaPlex.</p>
   <p><b>Fachadas modulares, píer, arbustos, bancos, mesas, árvores (impostores) e texturas PBR:</b> Poly Haven (CC0).</p>
