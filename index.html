@@ -60,8 +60,12 @@ body.playing .hud { opacity: 1; }
 #weapon .ammo small { color: var(--muted); font-weight: 700; }
 #weapon .wname { font: 700 9.5px var(--font-body); color: var(--muted); display: block; }
 #bl { left: var(--gl); bottom: var(--gb); display: grid; gap: 5px; justify-items: start; }
-#minimap { pointer-events: auto; width: 118px; height: 118px; border-radius: 50%; border: 3px solid var(--blue); box-shadow: 0 0 0 1px rgba(0,0,0,.6), 0 0 14px rgba(35,166,255,.45); background: rgba(6,10,14,.6); touch-action: manipulation; }
-.bars { display: grid; gap: 3px; width: 118px; }
+#mmwrap { --mm-b: #6ee7ff; --mm-g: rgba(56,189,248,.65); --mm-g2: rgba(56,189,248,.3); --mm-bg: #8ac8ec; pointer-events: auto; position: relative; width: 138px; height: 99px; border-radius: 16px; overflow: hidden; background: var(--mm-bg); border: 2px solid var(--mm-b); box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 0 10px var(--mm-g), 0 0 24px var(--mm-g2), inset 0 0 14px var(--mm-g2); touch-action: manipulation; cursor: pointer; transition: border-color .6s, box-shadow .6s, background .6s; isolation: isolate; }
+#minimap { position: absolute; left: 50%; top: 50%; width: 208px; height: 208px; transform: translate(-50%, -57%) perspective(300px) rotateX(36deg); transform-origin: 50% 60%; pointer-events: none; }
+#mmwrap::after { content: ''; position: absolute; inset: 0; border-radius: 14px; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), inset 0 10px 18px rgba(0,0,0,.18); }
+#mm-n { position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: rgba(8,10,18,.88); color: #fff; font: 800 11px var(--font-body); display: grid; place-items: center; border: 1.5px solid rgba(255,255,255,.85); z-index: 2; pointer-events: none; }
+#mm-dist { position: absolute; left: 9px; top: 6px; z-index: 2; font: 800 12px var(--font-body); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.75), 0 0 8px rgba(0,0,0,.4); pointer-events: none; font-variant-numeric: tabular-nums; }
+.bars { display: grid; gap: 3px; width: 138px; }
 .bar { position: relative; height: 7px; border-radius: 4px; background: rgba(6,10,14,.6); border: 1px solid rgba(255,255,255,.12); overflow: hidden; }
 .bar i { position: absolute; inset: 0; transform-origin: left; transition: transform .45s cubic-bezier(.2,.8,.2,1); border-radius: 3px; }
 #life-fill { background: linear-gradient(90deg, #1f6fff, var(--life)); }
@@ -70,13 +74,13 @@ body.playing .hud { opacity: 1; }
 .bar.thin { height: 4px; }
 #stamina-fill { background: var(--sea); }
 #stamina-fill.low { background: var(--danger); }
-#place { position: fixed; left: calc(var(--gl) + 128px); bottom: calc(var(--gb) + 4px); }
+#place { position: fixed; left: calc(var(--gl) + 148px); bottom: calc(var(--gb) + 4px); }
 #speed { display: none; font: 400 18px var(--font-display); color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.6); }
 #toast { top: calc(var(--gt) + 6px); left: 50%; transform: translateX(-50%); background: var(--panel); padding: 7px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; opacity: 1; max-width: 60vw; text-align: center; }
 #joy { position: fixed; left: 0; top: 0; width: 124px; height: 124px; border-radius: 50%; border: 2px solid rgba(35,166,255,.65); background: radial-gradient(circle, rgba(6,10,14,.35), rgba(6,10,14,.15)); pointer-events: none; opacity: 0; scale: .7; transition: opacity .18s ease, scale .18s ease; }
 #joy.active { opacity: 1; scale: 1; }
 #joy-knob { position: absolute; left: 37px; top: 37px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,.9); box-shadow: 0 0 0 2px rgba(35,166,255,.8), 0 2px 10px rgba(0,0,0,.35); }
-#joy-hint { left: calc(var(--gl) + 150px); bottom: calc(var(--gb) + 70px); font-size: 10.5px; font-weight: 800; letter-spacing: .08em; color: rgba(255,255,255,.75); text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+#joy-hint { left: calc(var(--gl) + 168px); bottom: calc(var(--gb) + 70px); font-size: 10.5px; font-weight: 800; letter-spacing: .08em; color: rgba(255,255,255,.75); text-shadow: 0 1px 2px rgba(0,0,0,.6); }
 body.joy-used #joy-hint { opacity: 0; }
 body:not(.touch) #joy-hint, body:not(.touch) .buttons, body:not(.touch) #drive-left { display: none !important; }
 body.touch #keys { display: none; }
@@ -104,7 +108,7 @@ body.driving #btn-jump { display: none; }
 body.driving #btn-run { display: none; }
 body.driving #btn-gas { display: grid; }
 body.driving #btn-act { grid-column: 1; grid-row: 1; }
-#drive-left { left: calc(var(--gl) + 132px); bottom: var(--gb); display: none; gap: 12px; }
+#drive-left { left: calc(var(--gl) + 154px); bottom: var(--gb); display: none; gap: 12px; }
 /* HUD do carro (topo central): Rádio, Faróis, Câmeras, Celular — botões redondos escuros, ícones brancos */
 #carbar { top: var(--gt); left: 50%; transform: translateX(-50%); display: none; gap: 12px; }
 body.driving #carbar { display: flex; }
@@ -212,7 +216,7 @@ body.portrait #rotate { display: grid; }
 @media (prefers-reduced-motion: reduce) { .hud, #joy, .btn, #rotate .ico { transition: none; animation: none; } }
 @media (max-height: 430px) { #start h1 { font-size: 44px; } #start p { font-size: 13px; } }
 </style>
-  <script type="module" crossorigin src="./app/index-BZZ7pCm_.js"></script>
+  <script type="module" crossorigin src="./app/index-Nzy2Q4s2.js"></script>
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
@@ -236,7 +240,7 @@ body.portrait #rotate { display: grid; }
 <div class="hud" id="bl">
   <div id="speed">0 km/h</div>
   <div id="gps-hint" hidden></div>
-  <canvas id="minimap" width="236" height="236" aria-label="Minimapa: toque para abrir o mapa"></canvas>
+  <div id="mmwrap" role="button" aria-label="Minimapa: toque para abrir o mapa"><canvas id="minimap" width="400" height="400"></canvas><div id="mm-dist" hidden></div><div id="mm-n">N</div></div>
   <div class="bars">
     <div class="bar" aria-label="Vida"><i id="life-ghost"></i><i id="life-fill"></i></div>
     <div class="bar" aria-label="Colete"><i id="armor-fill"></i></div>
