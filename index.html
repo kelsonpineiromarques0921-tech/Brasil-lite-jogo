@@ -120,6 +120,17 @@ body.driving #carbar { display: flex; }
 .cbtn.on svg path[fill="#fff"] { fill: #ffe9a8; }
 #btn-phone.phone-walk { grid-column: 2; grid-row: 1; width: 56px; position: relative; }
 body.driving #toast { top: calc(var(--gt) + 68px); }
+/* chave de ignição: na barra do topo (ao lado do celular), do mesmo tamanho dos outros botões; desligado = chave em pé,
+   anel cinza e luz vermelha; ligado = chave girada, anel e luz verdes */
+#ignition { position: relative; cursor: pointer; border: none;
+  box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.14), 0 0 0 2px #7d838d; transition: box-shadow .25s, transform .08s; }
+#ignition .ign-key { width: 76%; height: 76%; transition: transform .28s cubic-bezier(.3,1.6,.5,1); transform: rotate(0deg); filter: drop-shadow(0 2px 2px rgba(0,0,0,.6)); }
+#ignition .ign-led { position: absolute; top: 6%; right: 6%; width: 7px; height: 7px; border-radius: 50%; background: #e5484d; box-shadow: 0 0 6px #e5484d; transition: background .2s, box-shadow .2s; }
+#ignition .ign-lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+#ignition.on { box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.14), 0 0 0 2px #35d07f, 0 0 14px 3px rgba(53,208,127,.45); }
+#ignition.on .ign-key { transform: rotate(90deg); }
+#ignition.on .ign-led { background: #35d07f; box-shadow: 0 0 8px #35d07f; }
+#ignition.cranking .ign-key { transform: rotate(118deg); }
 #carpanel { position: fixed; z-index: 30; min-width: 210px; max-width: 78vw; max-height: 62vh; overflow-y: auto; padding: 8px; border-radius: 16px; background: rgba(14,16,20,.9); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 12px 30px rgba(0,0,0,.45); display: grid; gap: 5px; }
 #carpanel[hidden] { display: none; }
 .cp-head { display: flex; justify-content: space-between; align-items: center; padding: 2px 4px 4px; font: 900 11px var(--font-body); letter-spacing: .12em; color: rgba(255,255,255,.7); }
@@ -216,7 +227,7 @@ body.portrait #rotate { display: grid; }
 @media (prefers-reduced-motion: reduce) { .hud, #joy, .btn, #rotate .ico { transition: none; animation: none; } }
 @media (max-height: 430px) { #start h1 { font-size: 44px; } #start p { font-size: 13px; } }
 </style>
-  <script type="module" crossorigin src="./app/index-B9ljf2Lp.js"></script>
+  <script type="module" crossorigin src="./app/index-DJ1l5qVK.js"></script>
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
@@ -263,6 +274,18 @@ body.portrait #rotate { display: grid; }
   <button class="pedal" id="btn-brake" type="button" aria-label="Freio"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M8.6 14.5h30.8c1.5 0 2.6 1.4 2.3 2.9l-2.1 9.6c-.2 1-1.1 1.7-2.2 1.7H28v6.6c0 .9-.7 1.6-1.6 1.6h-4.8c-.9 0-1.6-.7-1.6-1.6v-6.6H10.6c-1 0-1.9-.7-2.2-1.7l-2.1-9.6c-.3-1.5.8-2.9 2.3-2.9z"/><g fill="var(--rib)"><rect x="11.5" y="17.6" width="25" height="1.9" rx=".95"/><rect x="11.8" y="21.1" width="24.4" height="1.9" rx=".95"/><rect x="12.2" y="24.6" width="23.6" height="1.9" rx=".95"/></g></svg></button>
   <button class="pedal" id="btn-gas" type="button" aria-label="Acelerador"><svg viewBox="0 0 48 64" aria-hidden="true"><path fill="currentColor" d="M15.6 9h16.8c1.8 0 3.3 1.3 3.6 3.1l2.6 22.4c.2 1.7-1.1 3.2-2.8 3.2H12.2c-1.7 0-3-1.5-2.8-3.2L12 12.1C12.3 10.3 13.8 9 15.6 9z"/><rect fill="currentColor" x="17" y="37.7" width="3.2" height="7"/><rect fill="currentColor" x="27.8" y="37.7" width="3.2" height="7"/><rect fill="currentColor" x="10.5" y="44.7" width="27" height="6.3" rx="1.6"/><g fill="var(--rib)"><rect x="15.2" y="14.4" width="17.6" height="3.4" rx="1.7"/><rect x="14.6" y="21.4" width="18.8" height="3.4" rx="1.7"/><rect x="14" y="28.4" width="20" height="3.4" rx="1.7"/></g></svg></button>
 </div>
+<button id="ignition" type="button" aria-label="Chave de ignição: ligar ou desligar o motor" aria-pressed="false">
+  <svg class="ign-key" viewBox="0 0 48 48" aria-hidden="true">
+    <circle cx="24" cy="24" r="21" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.2" stroke-dasharray="2 4"/>
+    <rect x="15" y="5" width="18" height="15" rx="6" fill="#2b2e35" stroke="#c9ced6" stroke-width="1.6"/>
+    <circle cx="24" cy="10.5" r="2.2" fill="#131418" stroke="#c9ced6" stroke-width="1"/>
+    <rect x="19.5" y="15" width="9" height="3" rx="1" fill="#c9ced6"/>
+    <path d="M21.5 18h5v21.5l-2.5 3-2.5-3z" fill="#dfe3e8"/>
+    <path d="M26.5 23h2v2.2h-2zM26.5 28h2.6v2.4h-2.6zM26.5 33.4h1.8v2.2h-1.8z" fill="#dfe3e8"/>
+    <path d="M23.4 20v18" stroke="#9aa1ab" stroke-width=".9"/>
+  </svg>
+  <span class="ign-led"></span><span class="ign-lbl" id="ign-lbl">DESLIGADO</span>
+</button>
 <div class="hud" id="keys"><b>WASD</b> andar · <b>Shift</b> correr · <b>Espaço</b> pular/freio de mão · <b>F</b> interagir · <b>M</b> mapa · <b>arrastar o mouse</b> câmera</div>
 
 <div id="start">
@@ -280,6 +303,8 @@ body.portrait #rotate { display: grid; }
   <p><b>Rafael e pedestres:</b> criados com MakeHuman / MPFB2 e pacotes de assets do MakeHuman (CC0).</p>
   <p><b>Carro:</b> "Car Concept" de Eric Chadwick, Darmstadt Graphics Group, via Khronos glTF Sample Assets. Licença CC BY 4.0 (creativecommons.org/licenses/by/4.0). Modelo simplificado e repintado.</p>
   <p><b>Palmeiras:</b> "Tropical Palm" de Šimon Ustal (sketchfab.com/simonustal). Licença CC BY 4.0. Tronco simplificado para celular.</p>
+  <p><b>Corisco:</b> carro feito a partir do modelo "SportCar2" e da gravação de motor enviados pelo jogador (autor e licença não informados). Visual modificado, nome fictício e sem logo.</p>
+  <p><b>Pontes:</b> desenho baseado no modelo "Roadway Bridge" enviado pelo jogador (autor e licença não informados no arquivo). Perfil, pilares e postes refeitos para o jogo.</p>
   <p><b>Autódromo:</b> "Hungaroring 2020 layout" de Dave Love (sketchfab.com/Tyler_Dave). Licença CC BY 4.0. Otimizado e com as marcas trocadas pela NovaPlex.</p>
   <p><b>Fachadas modulares, píer, arbustos, bancos, mesas, árvores (impostores) e texturas PBR:</b> Poly Haven (CC0).</p>
   <p><b>Mar:</b> shader Water do three.js (MIT). <b>Céu:</b> modelo Preetham do three.js (MIT).</p>
